@@ -38,4 +38,11 @@ class BrandModel extends Model
         ];
     }
 
+    /**
+     * 品牌列表
+     * @return mixed
+     */
+    public function getList() {
+        return $this->where(['status' => ['gt', 0]])->select();
+    }
 }

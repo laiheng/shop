@@ -23,7 +23,9 @@ class ArticleModel extends Model
     ];
 
     /**
-     * 获取分页数据
+     * 获取分页数据和分页代码。
+     * @param array $cond
+     * @return array
      */
     public function getPageResult(array $cond = [])
     {
@@ -64,6 +66,16 @@ class ArticleModel extends Model
     }
 
     /**
+     * 获取文章完整内容。
+     * @param $id
+     * @return mixed
+     */
+    public function getArticleInfo($id)
+    {
+        return $this->join('__ARTICLE_CONTENT__ as ac on ac.article_id=__ARTICLE__.id')->find($id);
+    }
+
+    /**
      * 保存文章
      * @return boolean
      */
@@ -84,16 +96,6 @@ class ArticleModel extends Model
             return false;
         }
         return true;
-    }
-
-    /**
-     * 获取文章完整内容。
-     * @param $id
-     * @return mixed
-     */
-    public function getArticleInfo($id)
-    {
-        return $this->join('__ARTICLE_CONTENT__ as ac on ac.article_id=__ARTICLE__.id')->find($id);
     }
 
     /**

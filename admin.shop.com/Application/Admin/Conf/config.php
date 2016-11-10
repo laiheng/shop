@@ -10,6 +10,8 @@ return array(
         '__IMG__'       => '/Public/images',
         '__UPLOADIFY__' => '/Public/ext/uploadify',
         '__LAYER__'     => '/Public/ext/layer',
+        '__ZTREE__'     =>'/Public/ext/ztree',
+        '__UEDITOR__'   =>'/Public/ext/ueditor',
     ],
 	
 	/*数据库设置*/

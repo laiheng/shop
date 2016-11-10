@@ -47,7 +47,7 @@
                     </tr><?php endforeach; endif; ?>
                     <tr>
                         <td align="right" nowrap="true" colspan="6">
-                            <div id="turn-page" class='page'>
+                            <div class="col-xs-12 col-md-12 col-lg-12 b-page" >
                                 <?php echo ($page_html); ?>
                             </div>
                         </td>

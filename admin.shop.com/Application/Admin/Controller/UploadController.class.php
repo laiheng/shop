@@ -30,14 +30,14 @@ class UploadController extends Controller
             'replace' => false, //存在同名是否覆盖
             'hash' => false, //是否生成hash编码
             'callback' => false, //检测文件是否存在回调，如果存在返回文件信息数组
-            'driver' => 'Qiniu', // 文件上传驱动
-            'driverConfig' => array(
-                'secretKey' => 'Au3HZ44Vr27tFdFLNimQkKrYAThu1ahRy7dzTIUH', //七牛服务器
-                'accessKey' => 'hne6XIsTEj5IR_5S8DXoqQpAxnx9ec7_Y5ag0w_e', //七牛用户
-                'domain' => 'og7676ugl.bkt.clouddn.com', //域名
-                'bucket' => 'laiheng', //空间名称
-                'timeout' => 300, //超时时间
-            ), // 上传驱动配置
+//            'driver' => 'Qiniu', // 文件上传驱动
+//            'driverConfig' => array(
+//                'secretKey' => 'Au3HZ44Vr27tFdFLNimQkKrYAThu1ahRy7dzTIUH', //七牛服务器
+//                'accessKey' => 'hne6XIsTEj5IR_5S8DXoqQpAxnx9ec7_Y5ag0w_e', //七牛用户
+//                'domain' => 'og7676ugl.bkt.clouddn.com', //域名
+//                'bucket' => 'laiheng', //空间名称
+//                'timeout' => 300, //超时时间
+//            ), // 上传驱动配置
             //开启七牛云出现curl问题,php.ini中开启php_curl.dll,
             //将php文件中libssh2.dll  ssleay32.dll  libeay32.dll 3个文件拷贝到C:\Windows\SysWOW64,重启Apache
         ];

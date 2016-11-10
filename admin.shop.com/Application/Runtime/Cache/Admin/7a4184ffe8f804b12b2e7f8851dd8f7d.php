@@ -41,11 +41,11 @@
                         <td align="center"><img src="/Public/images/<?php echo ($row["status"]); ?>.gif" /></td>
                         <td align="center">
                             <a href="<?php echo U('edit',['id'=>$row['id']]);?>" title="编辑">编辑</a> |
-                            <a href="<?php echo U('remove',['id'=>$row['id']]);?>" title="编辑">移除</a> 
+                            <a href="<?php echo U('remove',['id'=>$row['id']]);?>" title="编辑">移除</a>
                         </td>
                     </tr><?php endforeach; endif; ?>
                     <tr>
-                        <td align="right" nowrap="true" colspan="6">
+                        <td align="right" nowrap="true" colspan="30" style="padding-right: 30px;">
                             <div class="col-xs-12 col-md-12 col-lg-12 b-page" >
                                 <?php echo ($page_html); ?>
                             </div>
