@@ -40,10 +40,10 @@ class GoodsCategoryController extends Controller
     {
         if (IS_POST) {
             if ($this->_model->create() === false) {
-                $this->error($this->_model->getError());
+                $this->error(get_error($this->_model));
             }
             if ($this->_model->addCategory() === false) {
-                $this->error($this->_model->getError());
+                $this->error(get_error($this->_model));
             }
             $this->success('添加成功', U('index'));
         } else {
@@ -61,10 +61,10 @@ class GoodsCategoryController extends Controller
     {
         if (IS_POST) {
             if ($this->_model->create() === false) {
-                $this->error($this->_model->getError());
+                $this->error(get_error($this->_model));
             }
             if ($this->_model->saveCategory() === false) {
-                $this->error($this->_model->getError());
+                $this->error(get_error($this->_model));
             }
             $this->success('修改成功', U('index'));
         } else {
@@ -83,7 +83,7 @@ class GoodsCategoryController extends Controller
     public function remove($id)
     {
         if ($this->_model->deleteCategory($id) === false) {
-            $this->error($this->_model->getError());
+            $this->error(get_error($this->_model));
         }
         $this->success('删除成功', U('index'));
     }

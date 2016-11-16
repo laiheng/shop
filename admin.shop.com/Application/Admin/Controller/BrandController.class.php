@@ -42,11 +42,11 @@ class BrandController extends Controller
             $brand_model = D('Brand');
             //收集数据
             if ($brand_model->create() == false) {
-                $this->error($brand_model->getError());
+                $this->error(get_error($brand_model));
             }
             //添加数据
             if ($brand_model->add() === false) {
-                $this->error($brand_model->getError());
+                $this->error(get_error($brand_model));
             }
             //跳转
             $this->success('添加成功', U('index'));
@@ -65,11 +65,11 @@ class BrandController extends Controller
         if (IS_POST) {
             //获取数据
             if ($brand_model->create() === false) {
-                $this->error($brand_model->getError());
+                $this->error(get_error($brand_model));
             }
             //保存
             if ($brand_model->save() === false) {
-                $this->error($brand_model->getError());
+                $this->error(get_error($brand_model));
             }
             //跳转
             $this->success('修改成功', U('index'));
@@ -90,7 +90,7 @@ class BrandController extends Controller
     {
         $brand_model = D('Brand');
         if (!$brand_model->where(['id' => $id])->setField('status', -1)) {
-            $this->error($brand_model->getError());
+            $this->error(get_error($brand_model));
         } else {
             $this->success('删除成功', U('index'));
         }

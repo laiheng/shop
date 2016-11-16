@@ -20,6 +20,7 @@
                 <img src="/Public/images/icon_search.gif" width="26" height="22" border="0" alt="search" />
                 <input type="text" name="name" size="15" value='<?php echo I("get.name");?>'/>
                 <input type="submit" value=" 搜索 " class="button" />
+                <a href="<?php echo U('index');?>"><input type="button" value=" 返回首页 " class="button" /></a>
             </form>
         </div>
         <form method="post" action="" name="listForm">
@@ -33,8 +34,8 @@
                         <th>操作</th>
                     </tr>
                     <?php if(is_array($rows)): foreach($rows as $key=>$row): ?><tr>
-                        <td class="first-cell">
-                            <span style="float:right"><?php echo ($row["name"]); ?></span>
+                        <td class="first-cell" style="line-height: 35px;"><?php echo ($row["name"]); ?>
+                            <span style="float:right"><img src="<?php echo ($row["logo"]); ?>" style="max-height: 35px;vertical-align: middle" border="0" alt="<?php echo ($row["name"]); ?>" /></span>
                             <span></span>
                         </td>
                         <td align="center"><?php echo ($row["intro"]); ?></td>
@@ -46,7 +47,7 @@
                         </td>
                     </tr><?php endforeach; endif; ?>
                     <tr>
-                        <td align="right" nowrap="true" colspan="6">
+                        <td align="right" nowrap="true" colspan="30" style="padding-right: 30px;">
                             <div class="col-xs-12 col-md-12 col-lg-12 b-page" >
                                 <?php echo ($page_html); ?>
                             </div>

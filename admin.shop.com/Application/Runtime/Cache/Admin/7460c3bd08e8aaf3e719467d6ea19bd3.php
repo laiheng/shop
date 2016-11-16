@@ -28,6 +28,7 @@
                 <?php echo arr2select($is_on_sales,'name','id','is_on_sale',I('get.is_on_sale'));?>
                 <input type="text" name="name" size="15" value='<?php echo I("get.name");?>'/>
                 <input type="submit" value=" 搜索 " class="button" />
+                <a href="<?php echo U('index');?>"><input type="button" value=" 返回首页 " class="button" /></a>
             </form>
         </div>
         <form method="post" action="" name="listForm">
@@ -52,14 +53,14 @@
                         <td align="center"><?php echo ($row["sn"]); ?></td>
                         <td align="center"><?php echo ($row["shop_price"]); ?></td>
                         <td align="center"><img src="/Public/images/<?php echo ($row["is_on_sale"]); ?>.gif" /></td>
-                        <td align="center"><img src="/Public/images/1.gif" /></td>
-                        <td align="center"><img src="/Public/images/1.gif" /></td>
-                        <td align="center"><img src="/Public/images/1.gif" /></td>
+                        <td align="center"><img src="/Public/images/<?php echo ($row["is_best"]); ?>.gif"/></td>
+                        <td align="center"><img src="/Public/images/<?php echo ($row["is_new"]); ?>.gif"/></td>
+                        <td align="center"><img src="/Public/images/<?php echo ($row["is_hot"]); ?>.gif"/></td>
                         <td align="center"><?php echo ($row["sort"]); ?></td>
                         <td align="center"><?php echo ($row["stock"]); ?></td>
                         <td align="center">
                             <a href="<?php echo U('edit',['id'=>$row['id']]);?>" title="编辑">编辑</a> |
-                            <a href="<?php echo U('remove',['id'=>$row['id']]);?>" title="编辑">移除</a> 
+                            <a href="<?php echo U('remove',['id'=>$row['id']]);?>" title="编辑">移除</a>
                         </td>
                     </tr><?php endforeach; endif; ?>
                     <tr>

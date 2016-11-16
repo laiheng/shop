@@ -9,6 +9,29 @@
         <link href="/Public/css/main.css" rel="stylesheet" type="text/css" />
         <link href="/Public/ext/ztree/zTreeStyle.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="/Public/ext/uploadify/common.css" />
+        <style type="text/css">
+            .upload-pre-item-gallery img{
+                /*width:150px;*/
+                max-height: 113px;
+            }
+
+            .upload-pre-item-gallery{
+                display:inline-block;
+            }
+
+            .upload-pre-item-gallery a{
+                position:relative;
+                top:5px;
+                right:15px;
+                float:right;
+                color:red;
+                font-size:16px;
+                text-decoration:none;
+            }
+            .upload-img-box{
+                margin-bottom: 10px;;
+            }
+        </style>
     </head>
     <body>
         <h1>
@@ -111,14 +134,14 @@
                     <tr>
                         <td class="label">商品相册：</td>
                         <td>
-                            <div class="gallery-upload-img-box">
-                                <?php if(is_array($row["galleries"])): foreach($row["galleries"] as $key=>$gallery): ?><div class="gallery-upload-pre-item">
-                                        <img src="<?php echo ($gallery); ?>"/>
-                                        <a href="#" data="<?php echo ($key); ?>">×</a>
+                            <div class="upload-img-box">
+                                <?php if(is_array($row["galleries"])): foreach($row["galleries"] as $key=>$gallery): ?><div class="upload-pre-item-gallery">
+                                        <img src="<?php echo ($gallery["path"]); ?>"/>
+                                        <a href="#" data='<?php echo ($gallery["id"]); ?>'>×</a>
                                     </div><?php endforeach; endif; ?>
                             </div>
                             <div>
-                                <input type="file" id="goods_gallery"/>
+                                <input type="file" id='goods-gallery-upload'/>
                             </div>
                         </td>
                     </tr>
@@ -144,15 +167,15 @@
         <script type="text/javascript" charset="utf-8" src="/Public/ext/ueditor/ueditor.all.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="/Public/ext/ueditor/lang/zh-cn/zh-cn.js"></script>
         <script type="text/javascript">
-            ///////////回显商品上架状态和促销状态///////////
+            //-------------------------回显商品上架状态和促销状态-------------------------//
             $('.is_on_sale').val([<?php echo ((isset($row["is_on_sale"]) && ($row["is_on_sale"] !== ""))?($row["is_on_sale"]):1); ?>]);
             $('.goods_status').val(<?php echo ((isset($row["goods_status"]) && ($row["goods_status"] !== ""))?($row["goods_status"]):'[1]'); ?>);
 
-            ///////ueditor开始///////
+            //-----------------------------ueditor开始---------------------------------//
             var ue = UE.getEditor('editor',{serverUrl: '<?php echo U('Editor/ueditor');?>'});
-            ///////ueditor结束///////
+            //------------------------------ueditor结束------------------------------//
 
-            ///////ztree开始////////
+            //-------------------------------ztree开始-----------------------------//
             var setting = {
                 data: {
                     simpleData: {
@@ -182,17 +205,17 @@
                     $('#goods_category_id').val(parent_node.id);
                     $('#goods_category_name').val(parent_node.name);<?php endif; ?>
             });
-            //////////ztree结束//////////
+            //---------------------------------ztree结束---------------------------------//
 
-            //////////uploadify上传LOGO开始///////////
+            //----------------------------uploadify上传LOGO开始----------------------------//
             $('#logo').uploadify({
                 swf: '/Public/ext/uploadify/uploadify.swf',
                 uploader: "<?php echo U('Upload/upload');?>",
                 buttonText:'选择文件',
-                fileTypeDesc:'选择文件吧',
-                onUploadSuccess:function(file,data){
+                fileTypeDesc:'选择文件',
+                onUploadSuccess:function(file,response){
                     //将响应数据转换为json对象
-                    data = $.parseJSON(data);
+                    var data = $.parseJSON(response);
                     if(data.status == 0){
                         layer.msg(data.msg,{icon: 5});
                     }else{
@@ -202,27 +225,60 @@
                     }
                 },
             });
-            //////////uploadify上传LOGO结束///////////
+            //-----------------------------uploadify上传LOGO结束----------------------------//
 
-            //////////uploadify上传相册开始///////////
-            $('#goods_gallery').uploadify({
+            //-----------------------------uploadify上传相册开始---------------------------//
+            $('#goods-gallery-upload').uploadify({
                 swf: '/Public/ext/uploadify/uploadify.swf',
                 uploader: "<?php echo U('Upload/upload');?>",
                 buttonText:'选择文件',
                 fileTypeDesc:'选择文件吧',
-                onUploadSuccess:function(file,data){
+                onUploadSuccess:function(file,response){
                     //将响应数据转换为json对象
-                    data = $.parseJSON(data);
-                    if(data.status == 0){
-                        layer.msg(data.msg,{icon: 5});
-                    }else{
-                        layer.msg(data.msg,{icon: 6});
-                        $('#logo-url').val(data.url);
-                        $('#logo-preview').attr('src',data.url);
+                    var data = $.parseJSON(response);
+                    if(data.status){ //上传成功
+                        //使用layer弹出提示
+                        layer.alert(data.msg, {icon: 6});
+                       //创建div,预览图片
+                        var html = '<div class="upload-pre-item-gallery">\
+                                        <img src="'+data.url+'"/>\
+                                        <a href="#">×</a>\
+                                        <input type="hidden" value="'+data.url+'" name="path[]"/>\
+                                    </div>';
+                        $(html).appendTo($('.upload-img-box'));
+                    }else{ //上传失败
+                        //提示
+                        layer.alert(data.msg, {icon: 5});
                     }
-                },
+                }
             });
-            //////////uploadify上传相册结束///////////
+            //-------------------------- uploadify上传相册结束 -----------------------------//
+
+            //--------------------------- 通过ajax删除相册 ---------------------------------//
+            //绑定事件,事件委托,因为js添加的节点,不使用委托,无法监听
+            $('.upload-img-box').on('click','a',function(){
+                var gallery_id = $(this).attr('data');
+                var parent_node = $(this).parent();
+                var url = '<?php echo U("GoodsGallery/remove");?>';
+                //删除数据库已有的
+                if(gallery_id){
+                    //说明是数据库中已存的,需要ajax删除
+                    var data = {
+                        id:gallery_id,
+                    };
+                    $.getJSON(url,data,function(data){
+                        if(data.status){
+                            layer.alert(data.info, {icon: 6});
+                            parent_node.remove();
+                        }else{
+                            layer.alert(data.info, {icon: 5});
+                        }
+                    });
+                }else{ //删除刚刚上传还没有保存的
+                    parent_node.remove();
+                    layer.alert('删除成功', {icon: 6});
+                }
+            });
 
         </script>
     </body>

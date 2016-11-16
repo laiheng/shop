@@ -51,11 +51,11 @@ class ArticleController extends Controller
             $article_model = D('Article');
             //收集数据
             if ($article_model->create() === false) {
-                $this->error($article_model->getError());
+                $this->error(get_error($article_model));
             }
             //添加数据
             if ($article_model->addArticle() === false) {
-                $this->error($article_model->getError());
+                $this->error(get_error($article_model));
             }
             //跳转
             $this->success('添加成功', U('index'));
@@ -79,11 +79,11 @@ class ArticleController extends Controller
         if (IS_POST) {
             //获取数据
             if ($article_model->create() === false) {
-                $this->error($article_model->getError());
+                $this->error(get_error($article_model));
             }
             //保存
             if ($article_model->saveArticle() === false) {
-                $this->error($article_model->getError());
+                $this->error(get_error($article_model));
             }
             //跳转
             $this->success('修改成功', U('index'));
@@ -109,7 +109,7 @@ class ArticleController extends Controller
     {
         $article_model = D('Article');
         if ($article_model->deleteArticle($id) === false) {
-            $this->error($article_model->getError());
+            $this->error(get_error($article_model));
         } else {
             $this->success('删除成功', U('index'));
         }

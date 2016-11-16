@@ -3,7 +3,7 @@
 <head>
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="http://www.tp.com/Public/Admin/Styles/general.css" rel="stylesheet" type="text/css" />
+<link href="/Public/css/general.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 #header-div {
   background:#278296;
@@ -116,7 +116,7 @@
 <body>
 <div id="header-div">
     <div id="logo-div" style="bgcolor:#000000;">
-        <img src="http://www.tp.com/Public/Admin/Images/ecshop_logo.gif" alt="ECSHOP - power for e-commerce" />
+        <img src="/Public/images/ecshop_logo.gif" alt="ECSHOP - power for e-commerce" />
     </div>
     <div id="submenu-div">
         <ul>
@@ -126,7 +126,7 @@
         </ul>
         <div id="send_info">
             <a href="#" target="main-frame" class="fix-submenu">清除缓存</a>
-            <a href="#" target="_top" class="fix-submenu">退出</a>
+            <a href="<?php echo U('Admin/logout');?>" target="_top" class="fix-submenu">退出</a>
         </div>
     </div>
 </div>

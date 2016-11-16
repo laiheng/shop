@@ -94,11 +94,11 @@ class GoodsController extends Controller
         if (IS_POST) {
             //收集数据
             if ($this->_model->create() === false) {
-                $this->error($this->_model->getError());
+                $this->error(get_error($this->_model));
             }
             //添加数据
             if ($this->_model->addGoods() === false) {
-                $this->error($this->_model->getError());
+                $this->error(get_error($this->_model));
             }
             //跳转
             $this->success('添加成功', U('index'));
@@ -113,11 +113,11 @@ class GoodsController extends Controller
         if (IS_POST) {
             //收集数据
             if ($this->_model->create() === false) {
-                $this->error($this->_model->getError());
+                $this->error(get_error($this->_model));
             }
             //修改数据
             if ($this->_model->saveGoods() === false) {
-                $this->error($this->_model->getError());
+                $this->error(get_error($this->_model));
             }
             //跳转
             $this->success('修改成功', U('index'));
@@ -139,7 +139,7 @@ class GoodsController extends Controller
     {
         $goods_model = D('Goods');
         if ($goods_model->deleteGoods($id) === false) {
-            $this->error($goods_model->getError());
+            $this->error(get_error($this->_model));
         } else {
             $this->success('删除成功', U('index'));
         }

@@ -43,28 +43,21 @@ class GoodsModel extends Model
     protected $_auto = [
         ['sn', 'createSn', self::MODEL_INSERT, 'callback'],
         ['inputtime', NOW_TIME, self::MODEL_INSERT],
-//        ['goods_status', 'calcGoodsStatus', self::MODEL_BOTH, 'callback'],
+        ['goods_status', 'GoodsStatus', self::MODEL_BOTH, 'callback'],
     ];
 
     /**
-     * 获取分页数据和分页代码。
-     * @param array $cond
-     * @return array
+     * 求和,求出商品推荐类型的位运算值.
+     * @param type $goods_status
+     * @return int
      */
-    public function getPageResult(array $cond = [])
+    protected function GoodsStatus($goods_status)
     {
-        //获取分页工具条
-        $count = $this->where($cond)->count();
-        $page = new Page($count, C('PAGE.SIZE'));
-        $page->setConfig('theme', C('PAGE.THEME'));
-        $page_html = $page->show();
-        //获取分页数据
-        $rows = $this->where($cond)->page(I('get.p'), C('PAGE.SIZE'))->order('sort')->select();
-        //返回数据
-        return [
-            'page_html' => $page_html,
-            'rows' => $rows,
-        ];
+        if (isset($goods_status)) {
+            return array_sum($goods_status);
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -99,6 +92,35 @@ class GoodsModel extends Model
         //2.计算SN
         $sn = 'SN' . $date . str_pad($num, 5, '0', STR_PAD_LEFT);
         return $sn;
+    }
+
+    /**
+     * 获取分页数据和分页代码。
+     * @param array $cond
+     * @return array
+     */
+    public function getPageResult(array $cond = [])
+    {
+        //获取分页工具条
+        $count = $this->where($cond)->count();
+        $page = new Page($count, C('PAGE.SIZE'));
+        $page->setConfig('theme', C('PAGE.THEME'));
+        $page_html = $page->show();
+        //获取分页数据
+        $rows = $this->where($cond)->page(I('get.p'), C('PAGE.SIZE'))->order('sort')->select();
+        //获取推荐类型
+        //与上1为真,说明含有1,把它赋值为1,方便展示图片:1.jpg或0.jpg
+        foreach ($rows as $key => $value) {
+            $value['is_best'] = $value['goods_status'] & 1 ? 1 : 0;
+            $value['is_new'] = $value['goods_status'] & 2 ? 1 : 0;
+            $value['is_hot'] = $value['goods_status'] & 4 ? 1 : 0;
+            $rows[$key] = $value;
+        }
+        //返回数据
+        return [
+            'page_html' => $page_html,
+            'rows' => $rows,
+        ];
     }
 
     /**
@@ -139,19 +161,17 @@ class GoodsModel extends Model
         //获取商品的基本信息
         $row = $this->find($id);
         //由于在前端展示的时候,需要使用到各个状态,所以我们变成一个json对象
-//        $row['goods_status'];
-//        $tmp = [];
-//        if($row['goods_status']&1){
-//            $tmp[] = 1;
-//        }
-//        if($row['goods_status']&2){
-//            $tmp[] = 2;
-//        }
-//        if($row['goods_status']&4){
-//            $tmp[] = 4;
-//        }
-//        $row['goods_status'] = json_encode($tmp);
-//        unset($tmp);
+        $goods_status = [];
+        if ($row['goods_status'] & 1) {
+            array_push($goods_status, 1);
+        }
+        if ($row['goods_status'] & 2) {
+            array_push($goods_status, 2);
+        }
+        if ($row['goods_status'] & 4) {
+            array_push($goods_status, 4);
+        }
+        $row['goods_status'] = json_encode($goods_status);
         //获取商品的详细描述
         $goods_intro_model = M('GoodsIntro');
         $row['content'] = $goods_intro_model->getFieldByGoodsId($id, 'content');
@@ -190,7 +210,11 @@ class GoodsModel extends Model
         return true;
     }
 
-
+    /**
+     * 删除商品
+     * @param $id
+     * @return bool
+     */
     public function deleteGoods($id)
     {
         //删除基本信息

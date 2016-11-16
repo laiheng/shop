@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$USER_HOME$/Desktop/shop/admin.shop.com/Application/Admin/Model/PermissionModel.class.php" charset="UTF-8" />
+    <file url="file://$USER_HOME$/Desktop/shop/admin.shop.com/Application/Admin/Model/RoleModel.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Controller/AdminController.class.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Controller/ArticleCategoryController.class.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Controller/ArticleController.class.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Controller/GoodsCategoryController.class.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Controller/GoodsController.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Controller/MenuController.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Controller/PermissionController.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Controller/RoleController.class.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Controller/SupplierController.class.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Logic/NestedSets.class.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Logic/Orm.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Model/AdminModel.class.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Model/ArticleCategoryModel.class.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Model/ArticleModel.class.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Model/GoodsCategoryModel.class.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Model/GoodsModel.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Model/MenuModel.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Model/PermissionModel.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Model/RoleModel.class.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Model/SupplierModel.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Common/Behaviors/CheckPermissionBehavior.class.php" charset="UTF-8" />
   </component>
 </project>

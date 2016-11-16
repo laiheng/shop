@@ -45,11 +45,11 @@ class ArticleCategoryController extends Controller
             $article_category_model = D('ArticleCategory');
             //收集数据
             if ($article_category_model->create() == false) {
-                $this->error($article_category_model->getError());
+                $this->error(get_error($article_category_model));
             }
             //添加数据
             if ($article_category_model->add() === false) {
-                $this->error($article_category_model->getError());
+                $this->error(get_error($article_category_model));
             }
             //跳转
             $this->success('添加成功', U('index'));
@@ -68,11 +68,11 @@ class ArticleCategoryController extends Controller
         if (IS_POST) {
             //获取数据
             if ($article_category_model->create() === false) {
-                $this->error($article_category_model->getError());
+                $this->error(get_error($article_category_model));
             }
             //保存
             if ($article_category_model->save() === false) {
-                $this->error($article_category_model->getError());
+                $this->error(get_error($article_category_model));
             }
             //跳转
             $this->success('修改成功', U('index'));
@@ -93,7 +93,7 @@ class ArticleCategoryController extends Controller
     {
         $article_category_model = D('ArticleCategory');
         if ($article_category_model->delete($id) === false) {
-            $this->error($article_category_model->getError());
+            $this->error(get_error($article_category_model));
         } else {
             $this->success('删除成功', U('index'));
         }

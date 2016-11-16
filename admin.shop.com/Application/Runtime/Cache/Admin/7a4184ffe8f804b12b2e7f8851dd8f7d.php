@@ -20,6 +20,7 @@
                 <img src="/Public/images/icon_search.gif" width="26" height="22" border="0" alt="search" />
                 <input type="text" name="name" size="15" value='<?php echo I("get.name");?>'/>
                 <input type="submit" value=" 搜索 " class="button" />
+                <a href="<?php echo U('index');?>"><input type="button" value=" 返回首页 " class="button" /></a>
             </form>
         </div>
         <form method="post" action="" name="listForm">
